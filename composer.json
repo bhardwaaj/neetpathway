@@ -1,0 +1,15 @@
+{
+    "name": "neetpathway/website",
+    "description": "NEET Pathway - Expert Counselling & Mentorship Platform",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "mongodb/mongodb": "^1.15",
+        "ext-mongodb": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "NeetPathway\\": "src/"
+        }
+    }
+} 
