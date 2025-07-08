@@ -5,7 +5,7 @@ session_start();
 $host = 'localhost';
 $dbname = 'neetpathway';
 $username = 'root';
-$password = '';
+$password = 'root';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
