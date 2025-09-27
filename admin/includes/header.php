@@ -28,6 +28,8 @@
 <li class="nav-item"><a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'users.php' ? 'active' : ''; ?>" href="users.php"><i class="fas fa-users me-1"></i>Users</a></li>
 <li class="nav-item"><a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'orders.php' ? 'active' : ''; ?>" href="orders.php"><i class="fas fa-shopping-cart me-1"></i>Orders</a></li>
 <li class="nav-item"><a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'messages.php' ? 'active' : ''; ?>" href="messages.php"><i class="fas fa-envelope me-1"></i>Messages</a></li>
+<li class="nav-item"><a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'notifications.php' ? 'active' : ''; ?>" href="notifications.php"><i class="fas fa-bell me-1"></i>Notifications</a></li>
+<li class="nav-item"><a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'news.php' ? 'active' : ''; ?>" href="news.php"><i class="fas fa-file-pdf me-1"></i>News</a></li>
 <li class="nav-item"><a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'chat.php' ? 'active' : ''; ?>" href="chat.php"><i class="fas fa-comments me-1"></i>Chat<?php
 try {
     $pdo = new PDO("mysql:host=localhost;dbname=neetpathway", "root", "");

@@ -25,14 +25,16 @@ $recent_feedback = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $user = getUserData();
 ?>
 
-<div class="container py-5">
+<div class="container py-5 dashboard-container">
     <div class="row">
         <!-- Sidebar -->
         <div class="col-lg-3">
-            <div class="card shadow-sm">
+            <div class="card dashboard-card shadow-lg">
                 <div class="card-body text-center">
                     <div class="mb-3">
-                        <i class="fas fa-user-circle fa-5x text-primary"></i>
+                        <div class="user-avatar">
+                            <i class="fas fa-user-circle fa-5x text-primary"></i>
+                        </div>
                     </div>
                     <h5 class="card-title mb-1"><?php echo htmlspecialchars($user['name']); ?></h5>
                     <p class="text-muted mb-3"><?php echo htmlspecialchars($user['email']); ?></p>
@@ -57,15 +59,55 @@ $user = getUserData();
         
         <!-- Main Content -->
         <div class="col-lg-9">
+            <?php if (!empty($notifications)) { ?>
+            <div id="notif-fab" class="position-fixed" style="right: 20px; bottom: 20px; z-index: 1050;">
+                <button class="btn btn-primary rounded-circle" style="width:56px;height:56px;" onclick="document.getElementById('notifPanel').classList.toggle('d-none')">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <div id="notifPanel" class="card shadow d-none" style="position:absolute; right:0; bottom:70px; width:320px;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-bell me-2"></i>Notifications</span>
+                        <button class="btn btn-sm btn-light" onclick="document.getElementById('notifPanel').classList.add('d-none')">&times;</button>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <?php foreach ($notifications as $n): ?>
+                            <div class="list-group-item">
+                                <div class="fw-semibold mb-1"><?php echo htmlspecialchars($n['title']); ?></div>
+                                <div class="small mb-2"><?php echo htmlspecialchars($n['message']); ?></div>
+                                <?php if (!empty($n['link_url'])): ?>
+                                    <a class="btn btn-sm btn-outline-primary me-2" href="<?php echo htmlspecialchars($n['link_url']); ?>" target="_blank">Open Link</a>
+                                <?php endif; ?>
+                                <?php if (!empty($n['attachment_path'])): ?>
+                                    <a class="btn btn-sm btn-outline-secondary" href="<?php echo htmlspecialchars($n['attachment_path']); ?>" target="_blank">Open PDF</a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+            <?php
+            // Notifications for this user for carousel + floating widget
+            $nowWhere = "(starts_at IS NULL OR starts_at <= NOW()) AND (ends_at IS NULL OR ends_at >= NOW())";
+            $notifications = [];
+            try {
+                $stmt = $conn->prepare("SELECT * FROM notifications WHERE is_active = 1 AND $nowWhere AND (audience='all' OR (audience='user' AND user_id = :uid)) ORDER BY created_at DESC LIMIT 12");
+                $stmt->execute([':uid' => $_SESSION['user_id']]);
+                $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {}
+            ?>
+
             <!-- Welcome Card -->
-            <div class="card shadow-sm mb-4">
+            <div class="card dashboard-card shadow-lg mb-4">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="mb-1">Welcome back, <?php echo htmlspecialchars($user['name']); ?>!</h4>
                             <p class="text-muted mb-0">Here's what's happening with your account.</p>
                         </div>
-                        <a href="index.php?page=counselling" class="btn btn-primary">Book New Service</a>
+                        <a href="index.php?page=counselling" class="btn btn-primary btn-animated">
+                            <i class="fas fa-plus me-2"></i>Book New Service
+                        </a>
                     </div>
                 </div>
             </div>
@@ -73,15 +115,17 @@ $user = getUserData();
             <!-- Stats Row -->
             <div class="row mb-4">
                 <div class="col-md-4">
-                    <div class="card shadow-sm">
+                    <div class="card dashboard-card shadow-lg stats-card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
-                                    <i class="fas fa-shopping-cart fa-2x text-primary"></i>
+                                    <div class="stats-icon">
+                                        <i class="fas fa-shopping-cart fa-2x text-primary"></i>
+                                    </div>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <h6 class="mb-1">Active Orders</h6>
-                                    <h3 class="mb-0">
+                                    <h3 class="mb-0 stats-number">
                                         <?php
                                         $stmt = $conn->prepare("SELECT COUNT(*) FROM orders WHERE user_id = :user_id AND status IN ('pending', 'processing')");
                                         $stmt->execute([':user_id' => $_SESSION['user_id']]);
@@ -94,15 +138,17 @@ $user = getUserData();
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card shadow-sm">
+                    <div class="card dashboard-card shadow-lg stats-card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
-                                    <i class="fas fa-check-circle fa-2x text-success"></i>
+                                    <div class="stats-icon">
+                                        <i class="fas fa-check-circle fa-2x text-success"></i>
+                                    </div>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <h6 class="mb-1">Completed Orders</h6>
-                                    <h3 class="mb-0">
+                                    <h3 class="mb-0 stats-number">
                                         <?php
                                         $stmt = $conn->prepare("SELECT COUNT(*) FROM orders WHERE user_id = :user_id AND status = 'completed'");
                                         $stmt->execute([':user_id' => $_SESSION['user_id']]);
@@ -115,15 +161,17 @@ $user = getUserData();
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card shadow-sm">
+                    <div class="card dashboard-card shadow-lg stats-card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
-                                    <i class="fas fa-star fa-2x text-warning"></i>
+                                    <div class="stats-icon">
+                                        <i class="fas fa-star fa-2x text-warning"></i>
+                                    </div>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <h6 class="mb-1">Average Rating</h6>
-                                    <h3 class="mb-0">
+                                    <h3 class="mb-0 stats-number">
                                         <?php
                                         $stmt = $conn->prepare("SELECT ROUND(AVG(rating), 1) FROM feedback WHERE user_id = :user_id");
                                         $stmt->execute([':user_id' => $_SESSION['user_id']]);
@@ -138,11 +186,11 @@ $user = getUserData();
             </div>
             
             <!-- Recent Orders -->
-            <div class="card shadow-sm mb-4">
+            <div class="card dashboard-card shadow-lg mb-4">
                 <div class="card-header bg-white py-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Recent Orders</h5>
-                        <a href="index.php?page=orders" class="btn btn-sm btn-outline-primary">View All</a>
+                        <h5 class="mb-0"><i class="fas fa-shopping-bag me-2"></i>Recent Orders</h5>
+                        <a href="index.php?page=orders" class="btn btn-sm btn-outline-primary btn-animated">View All</a>
                     </div>
                 </div>
                 <div class="card-body p-0">
@@ -160,7 +208,10 @@ $user = getUserData();
                             <tbody>
                                 <?php if (empty($recent_orders)): ?>
                                     <tr>
-                                        <td colspan="5" class="text-center py-4">No orders found</td>
+                                        <td colspan="5" class="text-center py-4 text-muted">
+                                            <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
+                                            No orders found
+                                        </td>
                                     </tr>
                                 <?php else: ?>
                                     <?php foreach ($recent_orders as $order): ?>
@@ -192,16 +243,19 @@ $user = getUserData();
             </div>
             
             <!-- Recent Feedback -->
-            <div class="card shadow-sm">
+            <div class="card dashboard-card shadow-lg">
                 <div class="card-header bg-white py-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Recent Feedback</h5>
-                        <a href="index.php?page=feedback" class="btn btn-sm btn-outline-primary">View All</a>
+                        <h5 class="mb-0"><i class="fas fa-star me-2"></i>Recent Feedback</h5>
+                        <a href="index.php?page=feedback" class="btn btn-sm btn-outline-primary btn-animated">View All</a>
                     </div>
                 </div>
                 <div class="card-body">
                     <?php if (empty($recent_feedback)): ?>
-                        <p class="text-center py-4 mb-0">No feedback submitted yet</p>
+                        <div class="text-center py-4 mb-0 text-muted">
+                            <i class="fas fa-comment-dots fa-2x mb-2 d-block"></i>
+                            No feedback submitted yet
+                        </div>
                     <?php else: ?>
                         <?php foreach ($recent_feedback as $feedback): ?>
                             <div class="border-bottom pb-3 mb-3">
@@ -222,4 +276,4 @@ $user = getUserData();
             </div>
         </div>
     </div>
-</div> 
+</div>

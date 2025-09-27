@@ -9,8 +9,8 @@
                     <p class="mb-4">Your one-stop solution for expert guidance and personalized mentorship for NEET aspirants. From planning to securing medical college admission, we support every step of your journey.</p>
                     <div class="social-links">
                         <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/neetpathway/" target="_blank" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="https://t.me/NEET_NAVIGATOR_Medical_Counsel" target="_blank" class="text-white me-3"><i class="fab fa-telegram"></i></a>
+                        <a href="https://www.instagram.com/neet_pathway_/" target="_blank" class="text-white me-3"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
@@ -25,7 +25,21 @@
                         <li class="mb-2"><a href="index.php?page=contact" class="text-white text-decoration-none">Contact</a></li>
                     </ul>
                 </div>
-                
+<div class="col-lg-2">
+                    <h5 class="mb-4" style="color:wheat">Join Us</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <h6 class="text-white">Become a Navigator</h6>
+                            <p class="small mb-2">If you believe in NEET Pathway, like we do, you can become a Navigator too.</p>
+                            <a href="https://forms.gle/AUbNNJTQWCxHjAkr9" target="_blank" class="btn btn-outline-dark btn-sm" style="background-color:wheat;color:black;">Fill Form</a>
+                        </li>
+                        <li class="mb-3">
+                            <h6 class="text-white">Collaborate With Us</h6>
+                            <p class="small mb-2">If you believe you can bring a revolution in counselling and mentorship.</p>
+                            <a href="https://forms.gle/uM54WtCW7arZ1MCs5" target="_blank" class="btn btn-outline-dark btn-sm" style="background-color:wheat; color:black;">Collaborate Now</a>
+                        </li>
+                    </ul>
+                </div>                
                 <div class="col-lg-3">
                     <h5 class="mb-4" style="color:wheat">Our Services</h5>
                     <ul class="list-unstyled">
@@ -46,7 +60,7 @@
                         </li>
                         <li class="mb-3">
                             <i class="fas fa-envelope me-2"></i>
-                            <a href="mailto:info@neetpathway.com" class="text-white text-decoration-none">info@neetpathway.com</a>
+                            <a href="mailto:pathwayneet@gmail.com" class="text-white text-decoration-none">pathwayneet@gmail.com</a>
                         </li>
                         <li class="mb-3">
                             <i class="fab fa-whatsapp me-2"></i>

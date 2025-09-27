@@ -3,6 +3,7 @@ $plans = [
     'GOVERNMENT' => [
         'title' => 'Government Plan',
         'price' => 4999,
+        'original_price' => 9998,
         'icon' => 'fa-landmark',
         'features' => [
             'Complete documentation assistance',
@@ -15,6 +16,7 @@ $plans = [
     'SEMI-GOVERNMENT' => [
         'title' => 'Semi-Government Plan',
         'price' => 9999,
+        'original_price' => 19998,
         'icon' => 'fa-hospital',
         'features' => [
             'Everything in Government Plan',
@@ -28,6 +30,7 @@ $plans = [
     'PRIVATE' => [
         'title' => 'Private Plan',
         'price' => 24999,
+        'original_price' => 49998,
         'icon' => 'fa-building-columns',
         'features' => [
             'Everything in Semi-Govt Plan',
@@ -41,6 +44,7 @@ $plans = [
     'MENTORSHIP' => [
         'title' => 'Mentorship Program',
         'price' => 10000,
+        'original_price' => 20000,
         'icon' => 'fa-user-graduate',
         'features' => [
             'Personalised 1-on-1 growth guidance',
@@ -63,16 +67,19 @@ $counselling_paths = [
             [
                 'name' => 'Government MBBS',
                 'price' => '4999',
+                'original_price' => '9998',
                 'icon' => 'fa-graduation-cap'
             ],
             [
                 'name' => 'Semi-Government',
                 'price' => '9999',
+                'original_price' => '19998',
                 'icon' => 'fa-users'
             ],
             [
                 'name' => 'Private/Deemed',
                 'price' => '24999',
+                'original_price' => '49998',
                 'icon' => 'fa-university'
             ]
         ]
@@ -87,16 +94,19 @@ $counselling_paths = [
             [
                 'name' => 'Government BDS',
                 'price' => '4999',
+                'original_price' => '9998',
                 'icon' => 'fa-tooth'
             ],
             [
                 'name' => 'Semi-Government',
                 'price' => '9999',
+                'original_price' => '19998',
                 'icon' => 'fa-users'
             ],
             [
                 'name' => 'Private/Deemed',
                 'price' => '24999',
+                'original_price' => '49998',
                 'icon' => 'fa-university'
             ]
         ]
@@ -111,16 +121,19 @@ $counselling_paths = [
             [
                 'name' => 'Government',
                 'price' => '4999',
+                'original_price' => '9998',
                 'icon' => 'fa-leaf'
             ],
             [
                 'name' => 'Semi-Government',
                 'price' => '9999',
+                'original_price' => '19998',
                 'icon' => 'fa-users'
             ],
             [
                 'name' => 'Private/Deemed',
                 'price' => '24999',
+                'original_price' => '49998',
                 'icon' => 'fa-university'
             ]
         ]
@@ -135,16 +148,19 @@ $counselling_paths = [
             [
                 'name' => 'Government',
                 'price' => '4999',
+                'original_price' => '9998',
                 'icon' => 'fa-paw'
             ],
             [
                 'name' => 'Semi-Government',
                 'price' => '9999',
+                'original_price' => '19998',
                 'icon' => 'fa-users'
             ],
             [
                 'name' => 'Private/Deemed',
                 'price' => '24999',
+                'original_price' => '49998',
                 'icon' => 'fa-university'
             ]
         ]
@@ -159,16 +175,19 @@ $counselling_paths = [
             [
                 'name' => 'ICAR Counselling',
                 'price' => '4999',
+                'original_price' => '9998',
                 'icon' => 'fa-seedling'
             ],
             [
                 'name' => 'CUET Counselling',
                 'price' => '4999',
+                'original_price' => '9998',
                 'icon' => 'fa-university'
             ],
             [
-                'name' => 'CUET + CUET',
+                'name' => 'CUET + ICAR',
                 'price' => '9999',
+                'original_price' => '19998',
                 'icon' => 'fa-plus-circle'
             ]
         ]
@@ -345,6 +364,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_service'])) {
                             <i class="fas <?php echo $plan['icon']; ?> fa-2x mb-3"></i>
                             <h3><?php echo $plan['name']; ?></h3>
                             <div class="price">
+                                <div class="discount-badge">50% OFF</div>
+                                <span class="original-price">₹<?php echo $plan['original_price']; ?>/-</span>
                                 <span class="currency">₹</span>
                                 <span class="amount"><?php echo $plan['price']; ?></span>/-
                             </div>
@@ -736,12 +757,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_service'])) {
     font-weight: 700;
     color: #0d6efd;
     margin-bottom: 1rem;
+    position: relative;
 }
 
 .price .currency {
     font-size: 1.5rem;
     font-weight: 500;
     vertical-align: super;
+}
+
+.discount-badge {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: #ff4444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transform: rotate(10deg);
+}
+
+.original-price {
+    display: block;
+    font-size: 1.2rem;
+    color: #999;
+    text-decoration: line-through;
+    margin-bottom: 0.5rem;
 }
 
 .btn-whatsapp {

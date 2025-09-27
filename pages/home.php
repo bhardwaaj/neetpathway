@@ -75,6 +75,49 @@ $journey = [
 <section class="hero-section">
     <div id="particles-js"></div>
     <div class="container hero-content">
+        <!-- News Section at Top of Hero -->
+        <?php
+        // News carousel for home page only
+        try {
+            $pdoNews = new PDO("mysql:host=localhost;dbname=neetpathway", "root", "");
+            $pdoNews->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $rowsNews = $pdoNews->query("SELECT title, link_url, pdf_path, created_at FROM news WHERE is_active = 1 AND (starts_at IS NULL OR starts_at <= NOW()) AND (ends_at IS NULL OR ends_at >= NOW()) ORDER BY created_at DESC LIMIT 10")->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) { $rowsNews = []; }
+        if (!empty($rowsNews)) {
+            echo '<div class="news-bar py-2 mb-5">';
+            echo '  <div class="container position-relative">';
+            echo '    <div class="d-flex align-items-center mb-3">';
+            echo '      <i class="fas fa-file-pdf me-2 text-white-50"></i><h5 class="mb-0 text-white">Latest News</h5>';
+            echo '    </div>';
+            echo '    <div class="news-horizontal-scroll">';
+            echo '      <div class="news-scroll-container">';
+            echo '        <div class="news-scroll-track">';
+            foreach ($rowsNews as $g) {
+                echo '          <div class="news-scroll-item">';
+                echo '            <div class="card news-card h-100 border-0">';
+                echo '              <div class="card-body d-flex align-items-center justify-content-between py-3">';
+                echo '                <div class="d-flex align-items-start flex-grow-1">';
+                echo '                  <div class="news-icon me-3"><i class="fas fa-file-pdf"></i></div>';
+                echo '                  <div class="me-3 flex-grow-1">';
+                echo '                    <div class="news-title fw-semibold text-dark">'.htmlspecialchars($g['title']).'</div>';
+                echo '                    <div class="news-meta small text-muted">'.date('M j, Y, g:i A', strtotime($g['created_at'])).'</div>';
+                echo '                  </div>';
+                echo '                </div>';
+                $href = !empty($g['link_url']) ? $g['link_url'] : $g['pdf_path'];
+                $label = !empty($g['link_url']) ? 'Open PDF' : 'Open PDF';
+                echo '                <a class="btn btn-sm btn-primary flex-shrink-0" href="'.htmlspecialchars($href).'" target="_blank">'.$label.'</a>';
+                echo '              </div>';
+                echo '            </div>';
+                echo '          </div>';
+            }
+            echo '        </div>';
+            echo '      </div>';
+            echo '    </div>';
+            echo '  </div>';
+            echo '</div>';
+        }
+        ?>
+        
         <div class="text-center mb-5">
             <img src="images/logo.PNG" style="border-radius: 45px;" alt="NEET Pathway" class="hero-logo mb-4">
             <h1 class="display-4 mb-3" style="color: #fff;">NEET Pathway</h1>

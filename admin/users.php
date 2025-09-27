@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 require_once 'includes/auth_check.php';
 require_once '../config/database.php';
 

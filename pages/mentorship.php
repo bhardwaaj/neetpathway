@@ -68,11 +68,40 @@ $benefits = [
             <div class="col-md-6 mb-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h3 class="h4 mb-4">Mentorship Plan</h3>
-                        <div class="text-center mb-4">
-                            <h4 class="text-primary display-4">₹10,000/-</h4>
-                            <p class="text-muted">Comprehensive 1-year mentorship program</p>
+                        <h3 class="h4 mb-4">Mentorship Plans</h3>
+                        
+                        <!-- 1 Year Plan -->
+                        <div class="text-center mb-4 plan-option">
+                            <div class="price-container position-relative">
+                                <div class="discount-badge">50% OFF</div>
+                                <h4 class="text-muted original-price">₹20,000/-</h4>
+                                <h4 class="text-primary display-4">₹10,000/-</h4>
+                                <p class="text-muted">Comprehensive 1-year mentorship program</p>
+                                <a href="https://wa.me/7340409636?text=Interested%20in%201-year%20mentorship%20program" class="btn btn-primary btn-lg w-100 mb-4" target="_blank">
+                                    Choose 1 Year Plan
+                                </a>
+                            </div>
                         </div>
+
+                        <div class="text-center my-4">
+                            <div class="divider">
+                                <span class="divider-text">OR</span>
+                            </div>
+                        </div>
+
+                        <!-- 2 Year Plan -->
+                        <div class="text-center mb-4 plan-option">
+                            <div class="price-container position-relative">
+                                <div class="discount-badge">50% OFF</div>
+                                <h4 class="text-muted original-price">₹33,998/-</h4>
+                                <h4 class="text-primary display-4">₹16,999/-</h4>
+                                <p class="text-muted">Comprehensive 2-year mentorship program</p>
+                                <a href="https://wa.me/7340409636?text=Interested%20in%202-year%20mentorship%20program" class="btn btn-primary btn-lg w-100" target="_blank">
+                                    Choose 2 Year Plan
+                                </a>
+                            </div>
+                        </div>
+
                         <hr>
                         <ul class="list-unstyled">
                             <?php foreach ($benefits as $benefit): ?>
@@ -182,6 +211,93 @@ $benefits = [
         </div>
     </div>
 </section>
+
+<style>
+.price-container {
+    margin: 2rem 0;
+}
+
+.discount-badge {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: #ff4444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transform: rotate(10deg);
+    z-index: 1;
+}
+
+.original-price {
+    text-decoration: line-through;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+}
+
+.divider {
+    position: relative;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: #ddd;
+}
+
+.divider::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: #ddd;
+}
+
+.divider-text {
+    background: #fff;
+    padding: 0 15px;
+    color: #666;
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.best-value-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #28a745;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 1;
+}
+
+.plan-option {
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.plan-option:hover {
+    background: #f8f9fa;
+    transform: translateY(-5px);
+}
+</style>
 
 <!-- CTA Section -->
 <section class="py-5 bg-light">

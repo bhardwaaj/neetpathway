@@ -1,12 +1,6 @@
 <?php
 $team_members = [
     [
-        'name' => 'Dr. Manoj Bugaliya',
-        'role' => 'Founder & CEO',
-        'image' => 'manoj.JPG',
-        'description' => 'Medical student by profession and a social worker by passion. Created NEET Pathway to solve the confusion and chaos students face during counselling.'
-    ],
-    [
         'name' => 'Dr. Bharat Tailor',
         'role' => 'Senior Medical Advisor - AIIMS Bhatinda',
         'image' => 'bhart.WEBP',
@@ -77,14 +71,14 @@ $milestones = [
                     <span class="lead">We are </span>
                     <span id="typewriter" class="lead"></span>
                 </div>
-                <p class="lead mb-4">Much like how parents guide a child's first step, and teachers shape life, NEET Pathway bridges your hard work to your dream medical college. We are the final support system that ensures you get the seat you deserve.</p>
+                <p class="lead mb-4">Much like how parents guide a child's first step, and teachers shape life, NEET Pathway bridges your hard work to your dream medical college. We are the final support system that ensures you to get the seat you deserve.</p>
                 <div class="d-flex gap-3">
                     <a href="index.php?page=counselling" class="btn btn-light btn-lg">Get Counselling</a>
                     <a href="index.php?page=contact" class="btn btn-outline-light btn-lg">Contact Us</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center">
-                <img src="images/about.png" style="width: 100%; height: 100%; border-radius: 20px;" alt="About NEET Pathway" class="img-fluid">
+                <img src="images/about.PNG" style="width: 100%; height: 100%; border-radius: 20px;" alt="About NEET Pathway" class="img-fluid">
             </div>
         </div>
     </div>
@@ -93,7 +87,7 @@ $milestones = [
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-4 text-center mb-4 mb-md-0">
-                <img src="images/manoj.jpg" alt="Dr. Manoj Bugaliya" class="rounded-circle founder-image mb-3" style="max-width: 250px; width: 100%;">
+                <img src="images/manoj.JPG" alt="Dr. Manoj Bugaliya" class="rounded-circle founder-image mb-3" style="max-width: 250px; width: 100%;">
                 <h3 class="h4 mb-1">Dr. Manoj Bugaliya</h3>
                 <p class="text-muted">Founder & CEO</p>
             </div>

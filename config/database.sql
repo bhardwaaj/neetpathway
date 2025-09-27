@@ -1,8 +1,26 @@
+-- Notifications table
+CREATE TABLE IF NOT EXISTS notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    audience ENUM('all','user','admin') DEFAULT 'all',
+    user_id INT NULL,
+    is_active TINYINT(1) DEFAULT 1,
+    starts_at DATETIME NULL,
+    ends_at DATETIME NULL,
+    link_url VARCHAR(1024) NULL,
+    attachment_path VARCHAR(1024) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX (audience),
+    INDEX (user_id),
+    INDEX (is_active),
+    INDEX (starts_at),
+    INDEX (ends_at)
+);
 -- Create database if not exists
 CREATE DATABASE IF NOT EXISTS neetpathway;
 USE neetpathway;
 
--- Drop existing tables if they exist
 DROP TABLE IF EXISTS order_notes;
 DROP TABLE IF EXISTS admin_activity_log;
 DROP TABLE IF EXISTS user_activity_log;
@@ -14,6 +32,7 @@ DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS user_profiles;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS admin_users;
+DROP TABLE IF EXISTS news;
 
 -- Create contacts table
 CREATE TABLE IF NOT EXISTS contacts (
@@ -205,6 +224,23 @@ CREATE TABLE admin_chat_messages (
     INDEX idx_sender_id (sender_id),
     INDEX idx_receiver_id (receiver_id),
     INDEX idx_created_at (created_at)
+);
+
+-- Create News table (PDF or external URL, with schedule window)
+CREATE TABLE IF NOT EXISTS news (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    message TEXT NULL,
+    link_url VARCHAR(1024) NULL,
+    pdf_path VARCHAR(1024) NULL,
+    starts_at DATETIME NULL,
+    ends_at DATETIME NULL,
+    is_active TINYINT(1) DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_news_active (is_active),
+    INDEX idx_news_created (created_at),
+    INDEX idx_news_starts (starts_at),
+    INDEX idx_news_ends (ends_at)
 );
 
 -- Insert default admin user (password: admin123)

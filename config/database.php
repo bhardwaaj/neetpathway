@@ -1,11 +1,13 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // MySQL Database connection settings
 $host = 'localhost';
 $dbname = 'neetpathway';
 $username = 'root';
-$password = 'root';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -22,6 +24,7 @@ function handleError($error) {
     return ['success' => false, 'message' => 'An error occurred. Please try again later.'];
 }
 
+// ✅ FIXED: Database class now uses correct credentials
 class Database {
     private $host = "localhost";
     private $db_name = "neetpathway";
@@ -66,18 +69,18 @@ function getUserId() {
 
 function getUserData() {
     if (!isLoggedIn()) return null;
-    
+
     $db = new Database();
     $conn = $db->getConnection();
-    
+
     $query = "SELECT u.*, up.* FROM users u 
               LEFT JOIN user_profiles up ON u.id = up.user_id 
               WHERE u.id = :id";
-    
+
     $stmt = $conn->prepare($query);
     $stmt->bindParam(":id", $_SESSION['user_id']);
     $stmt->execute();
-    
+
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
@@ -85,7 +88,7 @@ function getUserData() {
 function logUserActivity($user_id, $action, $description = '') {
     $db = new Database();
     $conn = $db->getConnection();
-    
+
     $stmt = $conn->prepare("INSERT INTO user_activity_log (user_id, action, description) VALUES (:user_id, :action, :description)");
     $stmt->execute([
         ':user_id' => $user_id,
@@ -108,4 +111,5 @@ function isValidPhone($phone) {
 function sanitizeInput($input) {
     return htmlspecialchars(strip_tags(trim($input)));
 }
-?> 
+?>
+
